@@ -1,31 +1,36 @@
 # Autovelql v3.0 - Official Release
 
-## [INFO] What is New?
+## [INFO] About v3.0
 
-This is the restart of the project with a new identity: **Autovelql**.
+This is the definitive version of **Autovelql**, reorganized for professional distribution and fully containerized.
 
-### [FEATURES] Key Features
+### [CHANGELOG] Changelog
 
-- **Automated Environment:** Sets up Docker, MySQL, PHP 8.2, and PhpMyAdmin in one click.
-- **MySQL Support:** Forced MySQL connection (replacing SQLite defaults).
-- **PermisoFix:** Auto-correction of `chmod 777` permissions for Windows/Docker volumes.
-- **Multi-Language Support:** English, Spanish, German, Korean, Italian, Valencian.
-- **Robust Cleaning:** Improved "Clean Install" logic to handle locked files on Windows.
+- **[STRUCTURE] Project Reorganization:**
+  - Code moved to `src/`.
+  - Docs moved to `docs/`.
+  - Clean root directory with only Launchers and Config.
+- **[LAUNCHERS] New Native Launchers:**
+  - `start_windows.bat` (Windows).
+  - `start_linux.sh` (Linux/Mac).
+  - Zero-config, auto-dependency checking.
+- **[PACKAGE] Docker Image:**
+  - Official GitHub Package support (`ghcr.io`).
+  - Run without installing Python/libs locally.
+- **[DOCS] Documentation:**
+  - Zero Emojis policy (Text tags [TAG] only).
+  - Strict Proprietary Freeware License (2025).
+  - Multi-language support improved.
 
-### [FIXES] Bug Fixes
+### [INSTALL] How to Install
 
-- Fixed `permission denied` errors in `storage/` folder.
-- Fixed `sqlite` connection errors by injecting `DB_CONNECTION=mysql` in `.env`.
-- Fixed window resizing issues (Resizable=True).
-
-### [INSTALL] Installation
-
-1.  **Scripts (Standard):**
+1.  **Standard (Scripts):**
     - **Windows:** Run `start_windows.bat`.
     - **Linux/Mac:** Run `./start_linux.sh`.
-2.  **GitHub Package (Docker):**
-    - Pull and run from `ghcr.io/tu-usuario/autovelql:latest`.
+2.  **Container (Docker):**
+    - `docker run ghcr.io/your-user/autovelql:v3.0`
 
----
+### [CREDITS] Credits
 
-_Verified working on Windows 10/11 and Docker Desktop v4.x_
+- **Copyright:** Autovelql (c) 2025
+- **License:** Proprietary Freeware

@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# 1. Ensure script is executable
 chmod +x src/scripts/linux/init.sh
 
-# 2. Run Setup
 ./src/scripts/linux/init.sh
 
 if [ $? -ne 0 ]; then
@@ -11,7 +9,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# 3. Determine VENV path 
 VENV_PATH="src/scripts/venv/bin/activate"
 
 if [ -f "$VENV_PATH" ]; then
