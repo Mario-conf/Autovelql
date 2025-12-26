@@ -1,6 +1,6 @@
-# Autovelql v3.0 - Official Release
+# Autovelql v3.2.1 - Official Release
 
-## [INFO] About v3.0
+## [INFO] About v3.2.1
 
 This is the definitive version of **Autovelql**, reorganized for professional distribution and fully containerized.
 
@@ -28,7 +28,7 @@ This is the definitive version of **Autovelql**, reorganized for professional di
     - **Windows:** Run `start_windows.bat`.
     - **Linux/Mac:** Run `./start_linux.sh`.
 2.  **Container (Docker):**
-    - `docker run ghcr.io/your-user/autovelql:v3.0`
+    - `docker run ghcr.io/your-user/autovelql:v3.2.1`
 
 ### [CREDITS] Credits
 
