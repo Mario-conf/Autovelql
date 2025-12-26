@@ -77,6 +77,22 @@ If a project already exists, Autovelql detects it:
 - [UPDATE] **UPDATE (Keep DB):** Updates code from Git but keeps your database data intact.
 - [CLEAN] **CLEAN INSTALL (Wipe):** Deletes **everything** (Code & DB) and starts from scratch.
 
+### [FAQ] Troubleshooting & Common Issues
+
+**Q: "Docker is not running" error?**
+A: Ensure Docker Desktop is open and the whale icon is visible in your taskbar. If on Linux, run `sudo systemctl start docker`.
+
+**Q: Port 3306 or 80 is already in use?**
+A: If you have XAMPP, WAMP, or another MySQL/Apache server running, stop them. Autovelql needs ports 80 (Web) and 3306 (MySQL) free.
+
+- _Solution:_ Stop other services or edit `docker-compose.yml` generated in the folder to change ports (e.g., `"8081:80"`).
+
+**Q: Database connection refused?**
+A: Autovelql sets `DB_HOST=mysql` automatically. Do not change this to `localhost` in your `.env` file, as the Laravel container needs to talk to the MySQL container, not your host machine.
+
+**Q: Changes in code are not reflecting?**
+A: The `proyecto/` folder is synced via Docker Volumes. Changes should be instant. If not, try restarting the containers with `docker compose restart`.
+
 ### [LICENSE] License (Proprietary Freeware)
 
 **Autovelql © 2025 - All Rights Reserved.**
