@@ -4,10 +4,11 @@ FROM python:3.11-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy the source code (src) into the container at /app
+COPY src /app
 
 # Install any needed packages specified in requirements
+# (We assume main.py uses customtkinter, so we install it)
 RUN pip install --no-cache-dir customtkinter
 
 # Define environment variable
