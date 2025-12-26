@@ -1,4 +1,4 @@
-# [AUTOVELQL] Autovelql - Laravel & MySQL Environment Builder
+# Autovelql - Laravel & MySQL Environment Builder
 
 ![Version](https://img.shields.io/badge/version-2.0-blue.svg) ![License](https://img.shields.io/badge/license-Proprietary_Freeware-red.svg) ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)
 
@@ -66,7 +66,7 @@ If a project already exists, Autovelql detects it:
 
 ### [LICENSE] License (Proprietary Freeware)
 
-**Autovelql © 2024 - All Rights Reserved.**
+**Autovelql © 2025 - All Rights Reserved.**
 
 1.  **Free Use:** You may use this software for free for personal, educational, or commercial purposes.
 2.  **Closed Source:** This is **not** Open Source. Source code, design, and logic belong exclusively to the author.
