@@ -8,7 +8,6 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements
-# (We assume main.py uses customtkinter, so we install it)
 RUN pip install --no-cache-dir customtkinter
 
 # Define environment variable

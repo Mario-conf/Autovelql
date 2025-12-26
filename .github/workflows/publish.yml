@@ -3,14 +3,14 @@ name: Build and Release
 on:
   push:
     tags:
-      - 'v*'  # Trigger on version tags like v1.0, v2.0
+      - 'v*'  
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  # JOB 1: Build Docker Image & Push to GHCR (Populates 'Packages')
+  # JOB 1: Build Docker Image & Push to GHCR 
   build-and-push-image:
     runs-on: ubuntu-latest
     permissions:
@@ -41,7 +41,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # JOB 2: Create GitHub Release (Populates 'Releases')
+  # JOB 2: Create GitHub Release 
   create-release:
     needs: build-and-push-image
     runs-on: ubuntu-latest
