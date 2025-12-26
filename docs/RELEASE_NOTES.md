@@ -1,4 +1,4 @@
-# Autovelql v2.0 - Official Release
+# Autovelql v3.0 - Official Release
 
 ## [INFO] What is New?
 
@@ -20,8 +20,11 @@ This is the restart of the project with a new identity: **Autovelql**.
 
 ### [INSTALL] Installation
 
-1.  **Windows:** Download and run `INICIAR_WINDOWS.bat`.
-2.  **Linux/Mac:** Run `./iniciar_linux_mac.sh`.
+1.  **Scripts (Standard):**
+    - **Windows:** Run `start_windows.bat`.
+    - **Linux/Mac:** Run `./start_linux.sh`.
+2.  **GitHub Package (Docker):**
+    - Pull and run from `ghcr.io/tu-usuario/autovelql:latest`.
 
 ---
 

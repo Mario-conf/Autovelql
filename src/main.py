@@ -8,11 +8,9 @@ import threading
 from tkinter import messagebox
 from urllib.parse import urlparse
 
-# 1. Global Configuration
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
-# 2. Main container folder
 BASE_DIR = "proyecto"
 
 class BuilderApp(ctk.CTk):
@@ -23,11 +21,9 @@ class BuilderApp(ctk.CTk):
         self.geometry("800x780")
         self.resizable(True, True)
         
-        # 3. Data variables
         self.repo_url = ctk.StringVar()
         self.branch = ctk.StringVar(value="main")
         
-        # 4. Database variables (defaults)
         self.db_name = ctk.StringVar(value="laravel_db")
         self.db_user = ctk.StringVar(value="laravel_user")
         self.db_pass = ctk.StringVar(value="secret")
@@ -38,11 +34,9 @@ class BuilderApp(ctk.CTk):
         self.check_existing_project()
 
     def setup_ui(self):
-        # 5. Title label
         self.label_title = ctk.CTkLabel(self, text="Autovelql", font=("Roboto", 28, "bold"))
         self.label_title.pack(pady=20)
 
-        # 6. Git section
         frame_git = ctk.CTkFrame(self)
         frame_git.pack(pady=5, padx=20, fill="x")
         
@@ -56,7 +50,6 @@ class BuilderApp(ctk.CTk):
         self.entry_branch = ctk.CTkEntry(frame_git, textvariable=self.branch)
         self.entry_branch.pack(fill="x", padx=10, pady=(0, 10))
 
-        # 7. Database section
         frame_db = ctk.CTkFrame(self)
         frame_db.pack(pady=10, padx=20, fill="x")
         
@@ -78,11 +71,9 @@ class BuilderApp(ctk.CTk):
         grid_frame.columnconfigure(1, weight=1)
         grid_frame.columnconfigure(3, weight=1)
 
-        # 8. Action button
         self.btn_action = ctk.CTkButton(self, text="BUILD PROJECT", height=50, command=self.start_process, font=("Roboto", 16, "bold"), fg_color="#1f538d")
         self.btn_action.pack(pady=10, padx=20, fill="x")
 
-        # 9. Log console
         ctk.CTkLabel(self, text="Activity Log:").pack(anchor="w", padx=20)
         self.textbox_log = ctk.CTkTextbox(self)
         self.textbox_log.pack(padx=20, pady=(0, 20), fill="both", expand=True)
@@ -96,7 +87,6 @@ class BuilderApp(ctk.CTk):
         print(message)
 
     def get_app_folder_name(self):
-        # 10. Extract repo name from URL
         url = self.repo_url.get().strip()
         if not url: return None
         parsed = urlparse(url)
@@ -106,7 +96,6 @@ class BuilderApp(ctk.CTk):
         return path.split('/')[-1] or "laravel_app"
 
     def check_existing_project(self):
-        # 11. Check if project folder exists
         if os.path.exists(BASE_DIR):
             self.btn_action.configure(text="EXISTING PROJECT DETECTED (Manage)", fg_color="#E59400", hover_color="#B87700")
 
@@ -131,17 +120,14 @@ class BuilderApp(ctk.CTk):
         self.is_running = True
         self.btn_action.configure(state="disabled", text="WORKING...")
         
-        # 12. Start process in background thread
         threading.Thread(target=self.run_logic, args=(url, app_name, mode), daemon=True).start()
 
     def run_logic(self, url, app_name, mode):
         try:
-            # Step 1: Prepare folder
             self.log("[1/10] Preparing project folder...")
             os.makedirs(BASE_DIR, exist_ok=True)
             app_path = os.path.join(BASE_DIR, app_name)
             
-            # Step 2: Clean environment if needed
             if mode == 'clean':
                 self.log("[2/10] [CLEAN] Wiping environment...")
                 self.run_command("docker compose down -v --remove-orphans", cwd=BASE_DIR, ignore_error=True)
@@ -169,23 +155,18 @@ class BuilderApp(ctk.CTk):
             else:
                 self.log("[2/10] New installation mode.")
 
-            # Step 3: Clone repository
             self.log(f"[3/10] Cloning repository into: {app_name}...")
             self.run_command(f"git clone -b {self.branch.get()} {url} {app_name}", cwd=BASE_DIR)
 
-            # Step 4: Generate Docker Compose
             self.log("[4/10] Generating docker-compose.yml...")
             self.create_docker_compose(app_name)
 
-            # Step 5: Start Docker containers
             self.log("[5/10] Starting containers (Apache + MySQL + PMA)...")
             self.run_command("docker compose up -d --build", cwd=BASE_DIR)
 
-            # Step 6: Wait for database
             self.log("[6/10] Waiting for MySQL...")
             self.wait_for_db()
 
-            # Step 7: Fix permissions
             self.log("[7/10] [FIX] Setting permissions on storage/ (chmod 777)...")
             folders_to_fix = ["storage", "bootstrap/cache"]
             for folder in folders_to_fix:
@@ -194,18 +175,15 @@ class BuilderApp(ctk.CTk):
                      os.makedirs(full_path, exist_ok=True)
                 self.run_command(f"docker compose exec -T -w /app app chmod -R 777 {folder}", cwd=BASE_DIR)
 
-            # Step 8: Configure .env file
             self.log("[8/10] Configuring .env file...")
             self.setup_env_file(app_path)
 
-            # Step 9: Install dependencies
             self.log("[9/10] Installing dependencies (Composer)...")
             self.run_command("docker compose exec -T -w /app app composer install", cwd=BASE_DIR)
             
             self.log("[9/10] Generating application key...")
             self.run_command("docker compose exec -T -w /app app php artisan key:generate", cwd=BASE_DIR)
 
-            # Step 10: Run migrations
             self.log("[10/10] Running migrations (Creating tables)...")
             if mode == 'clean' or mode == 'new':
                 self.run_command("docker compose exec -T -w /app app php artisan migrate --seed", cwd=BASE_DIR)
@@ -229,7 +207,6 @@ class BuilderApp(ctk.CTk):
             self.btn_action.configure(state="normal", text="RETRY")
 
     def create_docker_compose(self, app_folder_name):
-        # 13. Docker Compose template
         content = f"""
 services:
     app:
@@ -274,7 +251,6 @@ services:
             f.write(content.strip())
 
     def setup_env_file(self, app_path):
-        # 14. Setup .env file
         env_example = os.path.join(app_path, ".env.example")
         env_dest = os.path.join(app_path, ".env")
 
@@ -316,7 +292,6 @@ services:
         with open(env_dest, "w") as f: f.writelines(new_lines)
 
     def run_command(self, command, cwd=None, shell=True, ignore_error=False):
-        # 15. Execute shell command
         self.log(f"Exec: {command}")
         try:
             executable = '/bin/bash' if os.name != 'nt' else None
@@ -326,7 +301,6 @@ services:
                 raise Exception(f"Command failed: {command}")
 
     def wait_for_db(self):
-        # 16. Wait for MySQL to be ready
         time.sleep(5)
         for i in range(30):
             try:
@@ -337,7 +311,6 @@ services:
                 time.sleep(2)
         self.log("[WARNING] MySQL timeout, continuing anyway...")
 
-# 17. Dialog for existing project conflict
 class ProjectExistsDialog(ctk.CTkToplevel):
     def __init__(self, parent):
         super().__init__(parent)
@@ -362,7 +335,6 @@ class ProjectExistsDialog(ctk.CTkToplevel):
         self.result = 'clean'
         self.destroy()
 
-# 18. Entry point
 if __name__ == "__main__":
     app = BuilderApp()
     app.mainloop()

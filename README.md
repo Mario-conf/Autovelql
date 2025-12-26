@@ -30,10 +30,23 @@ To work its magic, you only need:
 
 ### [INSTALL] Installation & Start
 
-The software is portable. Just download it and run the launcher for your OS.
+#### Option A: Portable Scripts (Recommended)
 
-- **[WINDOWS] Windows:** Double-click on `INICIAR_WINDOWS.bat`. Accept admin permissions if requested.
-- **[LINUX / MAC] Linux & macOS:** Open terminal in the folder and run: `. ./iniciar_linux_mac.sh` (Note the leading dot).
+This is the easiest way. Just download the source and run:
+
+- **[WINDOWS] Windows:** Double-click on `start_windows.bat`.
+- **[LINUX / MAC] Linux & macOS:** Open terminal and run: `. ./start_linux.sh`
+
+#### Option B: GitHub Package (Docker Image)
+
+If you prefer to run the app in an isolated container without installing Python locally:
+
+```bash
+docker run -it --rm \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $(pwd)/proyecto:/app/proyecto \
+  ghcr.io/tu-usuario/autovelql:latest
+```
 
 ### [GUIDE] Usage Guide
 
@@ -82,8 +95,8 @@ If a project already exists, Autovelql detects it:
 
 ### [INSTALL] Cómo Iniciar
 
-- **Windows:** Doble click en `INICIAR_WINDOWS.bat`.
-- **Linux/Mac:** Ejecuta `. ./iniciar_linux_mac.sh` en la terminal.
+- **Windows:** Doble click en `start_windows.bat`.
+- **Linux/Mac:** Ejecuta `. ./start_linux.sh` en la terminal.
 
 ### [GUIDE] Instrucciones
 
@@ -106,8 +119,8 @@ If a project already exists, Autovelql detects it:
 
 ### [INSTALL] Starten
 
-- **Windows:** Doppelklick auf `INICIAR_WINDOWS.bat`.
-- **Linux/Mac:** Führen Sie `. ./iniciar_linux_mac.sh` im Terminal aus.
+- **Windows:** Doppelklick auf `start_windows.bat`.
+- **Linux/Mac:** Führen Sie `. ./start_linux.sh` im Terminal aus.
 
 ### [GUIDE] Anleitung
 
@@ -130,8 +143,8 @@ If a project already exists, Autovelql detects it:
 
 ### [INSTALL] 시작하기
 
-- **Windows:** `INICIAR_WINDOWS.bat` 파일을 더블 클릭하세요.
-- **Linux/Mac:** 터미널에서 `. ./iniciar_linux_mac.sh` 를 실행하세요.
+- **Windows:** `start_windows.bat` 파일을 더블 클릭하세요.
+- **Linux/Mac:** 터미널에서 `. ./start_linux.sh` 를 실행하세요.
 
 ### [GUIDE] 사용법
 
@@ -154,8 +167,8 @@ If a project already exists, Autovelql detects it:
 
 ### [INSTALL] Come Iniziare
 
-- **Windows:** Doppia clic su `INICIAR_WINDOWS.bat`.
-- **Linux/Mac:** Esegui `. ./iniciar_linux_mac.sh` nel terminale.
+- **Windows:** Doppia clic su `start_windows.bat`.
+- **Linux/Mac:** Esegui `. ./start_linux.sh` nel terminale.
 
 ### [GUIDE] Istruzioni
 
@@ -178,8 +191,8 @@ If a project already exists, Autovelql detects it:
 
 ### [INSTALL] Com Iniciar
 
-- **Windows:** Doble clic en `INICIAR_WINDOWS.bat`.
-- **Linux/Mac:** Executa `. ./iniciar_linux_mac.sh` en la terminal.
+- **Windows:** Doble clic en `start_windows.bat`.
+- **Linux/Mac:** Executa `. ./start_linux.sh` en la terminal.
 
 ### [GUIDE] Instruccions
 
