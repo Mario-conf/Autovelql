@@ -51,24 +51,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Read Release Notes
-        id: release_notes
-        run: |
-          # Read RELEASE_NOTES.md content into an environment variable
-          # Using delimiter to handle multi-line string
-          echo "notes<<EOF" >> $GITHUB_ENV
-          cat RELEASE_NOTES.md >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{ env.notes }}
+          body_path: docs/RELEASE_NOTES.md
           draft: false
           prerelease: false
           files: |
             LICENSE
             README.md
-            iniciar_linux_mac.sh
-            INICIAR_WINDOWS.bat
-            main.py
+            start_linux.sh
+            start_windows.bat
