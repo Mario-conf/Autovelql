@@ -1,6 +1,6 @@
 # Autovelql – Laravel & MySQL Environment Builder
 
-![Autovelql Logo](docs/img/bg.png)
+![Autovelql Logo](docs/img/bg.pg)
 
 ![Version](https://img.shields.io/badge/version-3.0-blue.svg)
 ![License](https://img.shields.io/badge/license-Proprietary_Freeware-red.svg)
