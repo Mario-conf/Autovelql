@@ -7,6 +7,11 @@ import webbrowser
 import threading
 from tkinter import messagebox
 from urllib.parse import urlparse
+import stat
+
+def on_rm_error(func, path, exc_info):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -137,7 +142,7 @@ class BuilderApp(ctk.CTk):
                 if os.path.exists(BASE_DIR):
                     self.log(f"[2/10] Deleting folder {BASE_DIR}...")
                     try:
-                        shutil.rmtree(BASE_DIR)
+                        shutil.rmtree(BASE_DIR, onerror=on_rm_error)
                     except Exception as e:
                         self.log(f"[2/10] shutil failed ({e}), using system command...")
                         if os.name == 'nt':
@@ -151,11 +156,15 @@ class BuilderApp(ctk.CTk):
                 self.log("[2/10] [UPDATE] Updating code only...")
                 self.run_command("docker compose down", cwd=BASE_DIR, ignore_error=True)
                 if os.path.exists(app_path):
-                    shutil.rmtree(app_path, ignore_errors=True)
+                    shutil.rmtree(app_path, onerror=on_rm_error)
             else:
                 self.log("[2/10] New installation mode.")
 
             self.log(f"[3/10] Cloning repository into: {app_name}...")
+            if os.path.exists(app_path):
+                 self.log(f"[3/10] Removing existing folder {app_name}...")
+                 shutil.rmtree(app_path, onerror=on_rm_error)
+            
             self.run_command(f"git clone -b {self.branch.get()} {url} {app_name}", cwd=BASE_DIR)
 
             self.log("[4/10] Generating docker-compose.yml...")
