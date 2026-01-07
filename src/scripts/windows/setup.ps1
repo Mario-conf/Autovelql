@@ -98,11 +98,11 @@ Write-Host "Verifying libraries..." -ForegroundColor Cyan
 python -m pip install --upgrade pip | Out-Null
 
 if (Test-Path $requirementsFile) {
-    pip install -r $requirementsFile | Out-Null
+    python -m pip install -r $requirementsFile | Out-Null
 }
 else {
     Write-Host "Installing CustomTkinter..."
-    pip install customtkinter | Out-Null
+    python -m pip install customtkinter | Out-Null
 }
 
 
